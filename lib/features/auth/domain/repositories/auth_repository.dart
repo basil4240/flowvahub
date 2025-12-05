@@ -1,10 +1,23 @@
-import '../../domain/entities/user.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flowvahub/core/error/exceptions.dart';
+import 'package:flowvahub/features/auth/domain/entities/auth_entity.dart';
 
-/// Authentication repository contract
 abstract class AuthRepository {
-  Future<User> login(String email, String password);
-  Future<User> register(String email, String password, String name);
-  Future<void> logout();
-  Future<User> getCurrentUser();
-  Future<bool> isLoggedIn();
+  Future<Either<AppException, AuthEntity>> signUp({
+    required String email,
+    required String password,
+  });
+
+  Future<Either<AppException, AuthEntity>> login({
+    required String email,
+    required String password,
+  });
+
+  Future<Either<AppException, void>> forgotPassword({
+    required String email,
+  });
+
+  Future<Either<AppException, void>> sendEmailVerification({
+    required String email,
+  });
 }
